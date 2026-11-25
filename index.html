@@ -37,7 +37,7 @@ main{max-width:1160px;margin:30px auto;padding:0 18px 65px}.panel{background:var
   <button class="option" data-value="vis"><strong>Vis of schaal- en schelpdieren</strong></button><button class="option" data-value="vlees"><strong>Vlees of barbecue</strong></button><button class="option" data-value="pasta"><strong>Pasta of vegetarisch</strong></button><button class="option" data-value="kaas"><strong>Kaasplank</strong></button><button class="option" data-value="dessert"><strong>Dessert</strong></button><button class="option" data-value="geen"><strong>Geen eten</strong></button>
  </div></div>
  <div class="nav"><button class="btn secondary" id="back" disabled>Vorige</button><button class="btn primary" id="next" disabled>Volgende</button></div>
- <div id="catalogStatus" class="status">Wijnassortiment wordt alvast op de achtergrond geladen…</div>
+ <div id="catalogStatus" class="status">Wijnassortiment wordt geladen…</div>
 </section>
 <section id="results" class="panel"><div class="result-head"><div class="eyebrow">JOUW PERSOONLIJKE SELECTIE</div><h2>Jouw wijnmatches</h2><p class="muted">De beste matches uit het actuele assortiment.</p><div class="pills" id="summary"></div></div><div id="status" class="status">Selectie berekenen…</div><h3 class="section-title">De 3 beste matches</h3><p class="section-note">De wijnen die het beste aansluiten op jouw antwoorden.</p><div class="cards" id="best"></div><h3 class="section-title">Ook het ontdekken waard</h3><p class="section-note">Nog drie wijnen die interessant kunnen zijn.</p><div class="cards" id="maybe"></div><div class="nav"><button class="btn secondary" id="restart">Opnieuw beginnen</button><button class="btn primary" id="allWinesButton">Bekijk alle wijnen</button></div></section>
 <section class="panel catalog" id="catalog"><div class="catalog-head"><div><div class="eyebrow">Het assortiment</div><h2>Alle beschikbare wijnen</h2></div><div id="catalogCount" class="count">Assortiment laden…</div></div><div class="catalog-tools"><input id="search" type="search" placeholder="Zoek op wijn, druif of land…" aria-label="Zoek in wijnen"><select id="filterType" aria-label="Filter op wijnsoort"><option value="alle">Alle soorten</option><option value="rood">Rode wijn</option><option value="wit">Witte wijn</option><option value="rose">Rosé</option><option value="bubbels">Mousserend</option><option value="zoet">Zoet / dessert</option><option value="alcoholvrij">Alcoholvrij</option></select><select id="sort" aria-label="Sorteer wijnen"><option value="default">Webshopvolgorde</option><option value="price-up">Prijs: laag naar hoog</option><option value="price-down">Prijs: hoog naar laag</option><option value="name">Naam: A tot Z</option></select></div><div class="cards" id="catalogCards"><div class="empty">De echte productcatalogus wordt opgehaald.</div></div><div class="pagination"><button class="btn secondary" id="prevPage" disabled>Vorige</button><span id="pageInfo">Pagina 1</span><button class="btn secondary" id="nextPage" disabled>Volgende</button></div></section>
@@ -45,8 +45,8 @@ main{max-width:1160px;margin:30px auto;padding:0 18px 65px}.panel{background:var
 </main><footer>THE ONLINE SOMMELIER · Persoonlijk wijnadvies</footer>
 <script>
 'use strict';
-const API='https://optivio-wijnserver.luuknoordermeer08.workers.dev/wijnen';
-const CACHE_KEY='online_sommelier_wines_v6',CACHE_TTL=15*60*1000,PER_PAGE=24, PAGE_SIZE=100, MAX_PAGES=20;
+const API='./wijnen.json';
+const CACHE_KEY='online_sommelier_wines_v7',CACHE_TTL=24*60*60*1000,PER_PAGE=24, PAGE_SIZE=100, MAX_PAGES=20;
 const answers={};let step=0,allWines=[],loadPromise=null,loadError=null,catalogPage=1;
 const steps=[...document.querySelectorAll('.step')],bar=document.getElementById('bar'),back=document.getElementById('back'),next=document.getElementById('next');
 function selected(k){return answers[k]&&(Array.isArray(answers[k])?answers[k].length>0:true)}
@@ -102,4 +102,3 @@ function renderCatalog(){const list=filtered(),pages=Math.max(1,Math.ceil(list.l
 const cached=readCache();if(cached.length){allWines=cached;status(`${cached.length} wijnen direct geladen. Controleren op actuele prijzen…`,'ready');renderCatalog()}refreshCatalog();update();
 </script>
 </body></html>
-
