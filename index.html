@@ -1,104 +1,629 @@
+
 <!doctype html>
 <html lang="nl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#241b20">
 <title>The Online Sommelier | Persoonlijk wijnadvies</title>
 <style>
 :root{--bg:#f5f1e9;--paper:#fffdf9;--ink:#29241f;--muted:#766e65;--wine:#70283f;--wine2:#8c4058;--gold:#bd9b68;--line:#e7dfd3;--green:#426a50;--shadow:0 16px 45px #241b2010}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
-header{height:74px;padding:0 max(5vw,20px);display:flex;align-items:center;justify-content:space-between;background:var(--paper);border-bottom:1px solid var(--line)}.logo{font:700 27px Georgia,serif;letter-spacing:3px;color:var(--wine)}.tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-.hero{padding:58px 20px 54px;text-align:center;color:white;background:radial-gradient(ellipse at 50% 0,#794153,#281e24 72%)}.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#d9bd91}.hero h1{font:clamp(38px,6vw,62px) Georgia,serif;margin:12px 0}.hero p{max-width:650px;margin:auto;color:#eee5e4;line-height:1.7}.hero .small{margin-top:15px;font-size:11px;color:#d9c9c9}
-main{max-width:1160px;margin:30px auto;padding:0 18px 65px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,36px);box-shadow:var(--shadow)}.quiz-wrap{max-width:850px;margin:0 auto}.progress{height:5px;background:#eee8df;border-radius:9px;margin-bottom:28px;overflow:hidden}.progress span{display:block;height:100%;width:20%;background:var(--gold);transition:width .2s}.step{display:none}.step.active{display:block}.stepno{font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:bold}.step h2{font:30px Georgia,serif;margin:9px 0}.sub{color:var(--muted);margin:0 0 22px}.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.option{min-height:64px;background:white;border:1px solid var(--line);border-radius:11px;padding:13px;text-align:left;color:var(--ink)}.option:hover{border-color:var(--gold)}.option.selected{border:2px solid var(--wine);background:#fbf3f5;padding:12px}.option strong{display:block}.option small{display:block;color:var(--muted);margin-top:4px;font-size:11px}.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px}.btn{border:0;border-radius:24px;padding:12px 21px;font-weight:700}.primary{background:var(--wine);color:white}.primary:hover{background:var(--wine2)}.secondary{background:#eee8df;color:var(--ink)}.btn:disabled{opacity:.4;cursor:not-allowed}.status{font-size:12px;color:var(--muted);text-align:center;margin:15px 0 0}.status.ready{color:var(--green)}.status.error{color:#9c3548}
-#results{display:none;margin-top:24px}#results.show{display:block}.result-head{text-align:center;margin-bottom:25px}.result-head h2{font:34px Georgia,serif;margin:8px}.muted{color:var(--muted)}.pills{margin:12px 0}.pill{display:inline-block;background:#f1e9dd;color:#755c3c;border-radius:20px;padding:5px 10px;font-size:11px;margin:3px}.section-title{font:26px Georgia,serif;margin:28px 0 5px}.section-note{font-size:13px;color:var(--muted);margin:0 0 14px}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}.wine{background:white;border:1px solid var(--line);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;min-width:0}[hidden]{display:none!important}.wine-photo{width:100%;height:190px;object-fit:contain;background:linear-gradient(135deg,#f5f0e8,#fffdf8);padding:12px}.wine-placeholder{height:190px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,#fffaf0,#e9dfd0);color:var(--wine)}.bottle{width:47px;height:133px;position:relative;border-radius:8px 8px 7px 7px;background:linear-gradient(90deg,#2d1b23,#6d263d 45%,#8b4055 65%,#351e28);box-shadow:8px 9px 18px #0002}.bottle:before{content:"";position:absolute;width:18px;height:30px;left:14px;top:-25px;border-radius:4px 4px 0 0;background:#542536}.bottle:after{content:"OPTIVIO";position:absolute;left:4px;right:4px;top:57px;padding:8px 1px;background:#eee1c7;color:#6d263d;text-align:center;font:7px Georgia,serif;letter-spacing:1px}.winebody{padding:15px;display:flex;flex-direction:column;flex:1}.kind{font-size:9px;text-transform:uppercase;letter-spacing:1.4px;color:var(--gold);font-weight:700}.wine h3{font:19px/1.25 Georgia,serif;margin:7px 0}.price{font-size:17px;font-weight:700;color:var(--wine);margin:2px 0 7px}.wine p{font-size:12px;color:var(--muted);line-height:1.5;margin:7px 0}.why{border-top:1px solid var(--line);padding-top:9px;color:var(--ink)!important}.wine a{color:var(--wine);font-size:12px;font-weight:700;text-decoration:none;margin-top:auto;padding-top:10px}.wine a:hover{text-decoration:underline}.fit{font-size:10px;color:var(--green);font-weight:700}
-.catalog{margin-top:34px}.catalog-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}.catalog-head h2{font:30px Georgia,serif;margin:0}.catalog-tools{display:flex;gap:9px;flex-wrap:wrap;margin:17px 0}.catalog-tools input,.catalog-tools select{border:1px solid var(--line);border-radius:9px;background:white;padding:11px 12px;color:var(--ink)}.catalog-tools input{flex:1;min-width:210px}.catalog-tools select{min-width:145px}.count{font-size:12px;color:var(--muted)}.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:22px}.pagination span{font-size:12px;color:var(--muted)}.empty{padding:25px;text-align:center;color:var(--muted);background:#f7f3ed;border-radius:12px}.notice{text-align:center;font-size:10px;line-height:1.6;color:var(--muted);margin-top:28px}footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
-@media(max-width:560px){header{height:64px;padding:0 16px}.tag{font-size:8px;letter-spacing:1px}.hero{padding:43px 18px}.nav .btn{padding:11px 16px}.catalog-head h2{font-size:25px}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{height:74px;padding:0 max(5vw,20px);display:flex;align-items:center;justify-content:space-between;background:var(--paper);border-bottom:1px solid var(--line)}
+.logo{font:700 27px Georgia,serif;letter-spacing:3px;color:var(--wine)}
+.tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.hero{padding:58px 20px 54px;text-align:center;color:white;background:radial-gradient(ellipse at 50% 0,#794153,#281e24 72%)}
+.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#d9bd91}
+.hero h1{font:clamp(38px,6vw,62px) Georgia,serif;margin:12px 0}
+.hero p{max-width:650px;margin:auto;color:#eee5e4;line-height:1.7}
+.hero .small{margin-top:15px;font-size:11px;color:#d9c9c9}
+main{max-width:1160px;margin:30px auto;padding:0 18px 65px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,36px);box-shadow:var(--shadow)}
+.quiz-wrap{max-width:850px;margin:0 auto}
+.progress{height:5px;background:#eee8df;border-radius:9px;margin-bottom:28px;overflow:hidden}
+.progress span{display:block;height:100%;width:20%;background:var(--gold);transition:width .2s}
+.step{display:none}
+.step.active{display:block}
+.stepno{font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:bold}
+.step h2{font:30px Georgia,serif;margin:9px 0}
+.sub{color:var(--muted);margin:0 0 22px}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.option{min-height:64px;background:white;border:1px solid var(--line);border-radius:11px;padding:13px;text-align:left;color:var(--ink)}
+.option:hover{border-color:var(--gold)}
+.option.selected{border:2px solid var(--wine);background:#fbf3f5;padding:12px}
+.option strong{display:block}
+.option small{display:block;color:var(--muted);margin-top:4px;font-size:11px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px}
+.btn{border:0;border-radius:24px;padding:12px 21px;font-weight:700}
+.primary{background:var(--wine);color:white}
+.primary:hover{background:var(--wine2)}
+.secondary{background:#eee8df;color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.status{font-size:12px;color:var(--muted);text-align:center;margin:15px 0 0}
+.status.ready{color:var(--green)}
+.status.error{color:#9c3548}
+#results{display:none;margin-top:24px}
+#results.show{display:block}
+.result-head{text-align:center;margin-bottom:25px}
+.result-head h2{font:34px Georgia,serif;margin:8px}
+.muted{color:var(--muted)}
+.pills{margin:12px 0}
+.pill{display:inline-block;background:#f1e9dd;color:#755c3c;border-radius:20px;padding:5px 10px;font-size:11px;margin:3px}
+.section-title{font:26px Georgia,serif;margin:28px 0 5px}
+.section-note{font-size:13px;color:var(--muted);margin:0 0 14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.wine{background:white;border:1px solid var(--line);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+[hidden]{display:none!important}
+.wine-photo{width:100%;height:190px;object-fit:contain;background:linear-gradient(135deg,#f5f0e8,#fffdf8);padding:12px}
+.wine-placeholder{height:190px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,#fffaf0,#e9dfd0);color:var(--wine)}
+.bottle{width:47px;height:133px;position:relative;border-radius:8px 8px 7px 7px;background:linear-gradient(90deg,#2d1b23,#6d263d 45%,#8b4055 65%,#351e28);box-shadow:8px 9px 18px #0002}
+.bottle:before{content:"";position:absolute;width:18px;height:30px;left:14px;top:-25px;border-radius:4px 4px 0 0;background:#542536}
+.bottle:after{content:"TOS";position:absolute;left:4px;right:4px;top:57px;padding:8px 1px;background:#eee1c7;color:#6d263d;text-align:center;font:7px Georgia,serif;letter-spacing:1px}
+.winebody{padding:15px;display:flex;flex-direction:column;flex:1}
+.kind{font-size:9px;text-transform:uppercase;letter-spacing:1.4px;color:var(--gold);font-weight:700}
+.wine h3{font:19px/1.25 Georgia,serif;margin:7px 0}
+.price{font-size:17px;font-weight:700;color:var(--wine);margin:2px 0 7px}
+.wine p{font-size:12px;color:var(--muted);line-height:1.5;margin:7px 0}
+.why{border-top:1px solid var(--line);padding-top:9px;color:var(--ink)!important}
+.wine a{color:var(--wine);font-size:12px;font-weight:700;text-decoration:none;margin-top:auto;padding-top:10px}
+.wine a:hover{text-decoration:underline}
+.fit{font-size:10px;color:var(--green);font-weight:700}
+.catalog{margin-top:34px}
+.catalog-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.catalog-head h2{font:30px Georgia,serif;margin:0}
+.catalog-tools{display:flex;gap:9px;flex-wrap:wrap;margin:17px 0}
+.catalog-tools input,.catalog-tools select{border:1px solid var(--line);border-radius:9px;background:white;padding:11px 12px;color:var(--ink)}
+.catalog-tools input{flex:1;min-width:210px}
+.catalog-tools select{min-width:145px}
+.count{font-size:12px;color:var(--muted)}
+.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:22px}
+.pagination span{font-size:12px;color:var(--muted)}
+.empty{padding:25px;text-align:center;color:var(--muted);background:#f7f3ed;border-radius:12px}
+.notice{text-align:center;font-size:10px;line-height:1.6;color:var(--muted);margin-top:28px}
+footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
+@media(max-width:560px){
+header{height:64px;padding:0 16px}
+.tag{font-size:8px;letter-spacing:1px}
+.hero{padding:43px 18px}
+.nav .btn{padding:11px 16px}
+.catalog-head h2{font-size:25px}
+}
 </style>
 </head>
 <body>
-<header><div class="logo">THE ONLINE SOMMELIER</div><div class="tag">Persoonlijk wijnadvies</div></header>
-<section class="hero"><div class="eyebrow">Persoonlijk wijnadvies</div><h1>Vind jouw perfecte wijn.</h1><p>Vertel wat je zoekt. The Online Sommelier vergelijkt jouw voorkeuren met het assortiment en laat direct passende wijnen zien.</p><div class="small">Actuele productinformatie · Echte productfoto's · Persoonlijke selectie</div></section>
+<header>
+<div class="logo">THE ONLINE SOMMELIER</div>
+<div class="tag">Persoonlijk wijnadvies</div>
+</header>
+
+<section class="hero">
+<div class="eyebrow">Persoonlijk wijnadvies</div>
+<h1>Vind jouw perfecte wijn.</h1>
+<p>Vertel wat je zoekt. The Online Sommelier vergelijkt jouw voorkeuren met het assortiment en laat direct passende wijnen zien.</p>
+<div class="small">Actuele productinformatie · Echte productfoto's · Persoonlijke selectie</div>
+</section>
+
 <main>
 <section class="panel quiz-wrap" id="quiz">
- <div class="progress"><span id="bar"></span></div>
- <div class="step active" data-step="0"><div class="stepno">VRAAG 01 / 05</div><h2>Wat is je budget?</h2><p class="sub">Kies je budget per fles.</p><div class="options" data-key="budget">
-  <button class="option" data-value="0-10"><strong>Tot €10</strong><small>Betaalbaar en toegankelijk</small></button><button class="option" data-value="10-15"><strong>€10 – €15</strong><small>Goede prijs-kwaliteit</small></button><button class="option" data-value="15-25"><strong>€15 – €25</strong><small>Iets bijzonders</small></button><button class="option" data-value="25-50"><strong>€25 – €50</strong><small>Een mooie fles</small></button><button class="option" data-value="50+"><strong>€50 of meer</strong><small>Voor een speciaal moment</small></button>
- </div></div>
- <div class="step" data-step="1"><div class="stepno">VRAAG 02 / 05</div><h2>Welke wijn zoek je?</h2><p class="sub">Je mag meerdere soorten kiezen.</p><div class="options" data-key="type" data-multi="true">
-  <button class="option" data-value="rood"><strong>Rode wijn</strong><small>Van soepel tot krachtig</small></button><button class="option" data-value="wit"><strong>Witte wijn</strong><small>Fris, fruitig of vol</small></button><button class="option" data-value="rose"><strong>Rosé</strong><small>Licht en fruitig</small></button><button class="option" data-value="bubbels"><strong>Bubbels</strong><small>Champagne en mousserend</small></button><button class="option" data-value="zoet"><strong>Zoet / dessert</strong><small>Port en dessertwijn</small></button><button class="option" data-value="alcoholvrij"><strong>Alcoholvrij</strong><small>Wijn zonder alcohol</small></button><button class="option" data-value="geen"><strong>Geen voorkeur</strong><small>Laat Optivio kiezen</small></button>
- </div></div>
- <div class="step" data-step="2"><div class="stepno">VRAAG 03 / 05</div><h2>Welke smaak past bij jou?</h2><p class="sub">Kies de smaak waar je van houdt.</p><div class="options" data-key="taste">
-  <button class="option" data-value="fris"><strong>Fris en licht</strong><small>Citrus, appel en levendig</small></button><button class="option" data-value="fruitig"><strong>Fruitig</strong><small>Rood fruit of tropisch fruit</small></button><button class="option" data-value="vol"><strong>Vol en krachtig</strong><small>Rijk, stevig en intens</small></button><button class="option" data-value="zacht"><strong>Zacht en soepel</strong><small>Rond en makkelijk drinkbaar</small></button><button class="option" data-value="droog"><strong>Droog</strong><small>Weinig restzoet</small></button><button class="option" data-value="zoet"><strong>Zoet</strong><small>Een duidelijke zoete smaak</small></button>
- </div></div>
- <div class="step" data-step="3"><div class="stepno">VRAAG 04 / 05</div><h2>Voor welk moment is de wijn?</h2><p class="sub">Kies de gelegenheid.</p><div class="options" data-key="occasion">
-  <button class="option" data-value="diner"><strong>Diner</strong><small>Voor bij een maaltijd</small></button><button class="option" data-value="borrel"><strong>Borrel of feest</strong><small>Voor een gezellig moment</small></button><button class="option" data-value="cadeau"><strong>Cadeau</strong><small>Om iemand te verrassen</small></button><button class="option" data-value="ontdekken"><strong>Iets nieuws proberen</strong><small>Laat je verrassen</small></button>
- </div></div>
- <div class="step" data-step="4"><div class="stepno">VRAAG 05 / 05</div><h2>Waar drink je de wijn bij?</h2><p class="sub">Zo houden we rekening met de smaakcombinatie.</p><div class="options" data-key="food">
-  <button class="option" data-value="vis"><strong>Vis of schaal- en schelpdieren</strong></button><button class="option" data-value="vlees"><strong>Vlees of barbecue</strong></button><button class="option" data-value="pasta"><strong>Pasta of vegetarisch</strong></button><button class="option" data-value="kaas"><strong>Kaasplank</strong></button><button class="option" data-value="dessert"><strong>Dessert</strong></button><button class="option" data-value="geen"><strong>Geen eten</strong></button>
- </div></div>
- <div class="nav"><button class="btn secondary" id="back" disabled>Vorige</button><button class="btn primary" id="next" disabled>Volgende</button></div>
- <div id="catalogStatus" class="status">Wijnassortiment wordt geladen…</div>
+<div class="progress"><span id="bar"></span></div>
+
+<div class="step active" data-step="0">
+<div class="stepno">VRAAG 01 / 05</div>
+<h2>Wat is je budget?</h2>
+<p class="sub">Kies je budget per fles.</p>
+<div class="options" data-key="budget">
+<button class="option" data-value="0-10"><strong>Tot €10</strong><small>Betaalbaar en toegankelijk</small></button>
+<button class="option" data-value="10-15"><strong>€10 – €15</strong><small>Goede prijs-kwaliteit</small></button>
+<button class="option" data-value="15-25"><strong>€15 – €25</strong><small>Iets bijzonders</small></button>
+<button class="option" data-value="25-50"><strong>€25 – €50</strong><small>Een mooie fles</small></button>
+<button class="option" data-value="50+"><strong>€50 of meer</strong><small>Voor een speciaal moment</small></button>
+</div>
+</div>
+
+<div class="step" data-step="1">
+<div class="stepno">VRAAG 02 / 05</div>
+<h2>Welke wijn zoek je?</h2>
+<p class="sub">Je mag meerdere soorten kiezen.</p>
+<div class="options" data-key="type" data-multi="true">
+<button class="option" data-value="rood"><strong>Rode wijn</strong><small>Van soepel tot krachtig</small></button>
+<button class="option" data-value="wit"><strong>Witte wijn</strong><small>Fris, fruitig of vol</small></button>
+<button class="option" data-value="rose"><strong>Rosé</strong><small>Licht en fruitig</small></button>
+<button class="option" data-value="bubbels"><strong>Bubbels</strong><small>Champagne en mousserend</small></button>
+<button class="option" data-value="zoet"><strong>Zoet / dessert</strong><small>Port en dessertwijn</small></button>
+<button class="option" data-value="alcoholvrij"><strong>Alcoholvrij</strong><small>Wijn zonder alcohol</small></button>
+<button class="option" data-value="geen"><strong>Geen voorkeur</strong><small>Laat The Online Sommelier kiezen</small></button>
+</div>
+</div>
+
+<div class="step" data-step="2">
+<div class="stepno">VRAAG 03 / 05</div>
+<h2>Welke smaak past bij jou?</h2>
+<p class="sub">Kies de smaak waar je van houdt.</p>
+<div class="options" data-key="taste">
+<button class="option" data-value="fris"><strong>Fris en licht</strong><small>Citrus, appel en levendig</small></button>
+<button class="option" data-value="fruitig"><strong>Fruitig</strong><small>Rood fruit of tropisch fruit</small></button>
+<button class="option" data-value="vol"><strong>Vol en krachtig</strong><small>Rijk, stevig en intens</small></button>
+<button class="option" data-value="zacht"><strong>Zacht en soepel</strong><small>Rond en makkelijk drinkbaar</small></button>
+<button class="option" data-value="droog"><strong>Droog</strong><small>Weinig restzoet</small></button>
+<button class="option" data-value="zoet"><strong>Zoet</strong><small>Een duidelijke zoete smaak</small></button>
+</div>
+</div>
+
+<div class="step" data-step="3">
+<div class="stepno">VRAAG 04 / 05</div>
+<h2>Voor welk moment is de wijn?</h2>
+<p class="sub">Kies de gelegenheid.</p>
+<div class="options" data-key="occasion">
+<button class="option" data-value="diner"><strong>Diner</strong><small>Voor bij een maaltijd</small></button>
+<button class="option" data-value="borrel"><strong>Borrel of feest</strong><small>Voor een gezellig moment</small></button>
+<button class="option" data-value="cadeau"><strong>Cadeau</strong><small>Om iemand te verrassen</small></button>
+<button class="option" data-value="ontdekken"><strong>Iets nieuws proberen</strong><small>Laat je verrassen</small></button>
+</div>
+</div>
+
+<div class="step" data-step="4">
+<div class="stepno">VRAAG 05 / 05</div>
+<h2>Waar drink je de wijn bij?</h2>
+<p class="sub">Zo houden we rekening met de smaakcombinatie.</p>
+<div class="options" data-key="food">
+<button class="option" data-value="vis"><strong>Vis of schaal- en schelpdieren</strong></button>
+<button class="option" data-value="vlees"><strong>Vlees of barbecue</strong></button>
+<button class="option" data-value="pasta"><strong>Pasta of vegetarisch</strong></button>
+<button class="option" data-value="kaas"><strong>Kaasplank</strong></button>
+<button class="option" data-value="dessert"><strong>Dessert</strong></button>
+<button class="option" data-value="geen"><strong>Geen eten</strong></button>
+</div>
+</div>
+
+<div class="nav">
+<button class="btn secondary" id="back" disabled>Vorige</button>
+<button class="btn primary" id="next" disabled>Volgende</button>
+</div>
+<div id="catalogStatus" class="status">Wijnassortiment wordt geladen…</div>
 </section>
-<section id="results" class="panel"><div class="result-head"><div class="eyebrow">JOUW PERSOONLIJKE SELECTIE</div><h2>Jouw wijnmatches</h2><p class="muted">De beste matches uit het actuele assortiment.</p><div class="pills" id="summary"></div></div><div id="status" class="status">Selectie berekenen…</div><h3 class="section-title">De 3 beste matches</h3><p class="section-note">De wijnen die het beste aansluiten op jouw antwoorden.</p><div class="cards" id="best"></div><h3 class="section-title">Ook het ontdekken waard</h3><p class="section-note">Nog drie wijnen die interessant kunnen zijn.</p><div class="cards" id="maybe"></div><div class="nav"><button class="btn secondary" id="restart">Opnieuw beginnen</button><button class="btn primary" id="allWinesButton">Bekijk alle wijnen</button></div></section>
-<section class="panel catalog" id="catalog"><div class="catalog-head"><div><div class="eyebrow">Het assortiment</div><h2>Alle beschikbare wijnen</h2></div><div id="catalogCount" class="count">Assortiment laden…</div></div><div class="catalog-tools"><input id="search" type="search" placeholder="Zoek op wijn, druif of land…" aria-label="Zoek in wijnen"><select id="filterType" aria-label="Filter op wijnsoort"><option value="alle">Alle soorten</option><option value="rood">Rode wijn</option><option value="wit">Witte wijn</option><option value="rose">Rosé</option><option value="bubbels">Mousserend</option><option value="zoet">Zoet / dessert</option><option value="alcoholvrij">Alcoholvrij</option></select><select id="sort" aria-label="Sorteer wijnen"><option value="default">Webshopvolgorde</option><option value="price-up">Prijs: laag naar hoog</option><option value="price-down">Prijs: hoog naar laag</option><option value="name">Naam: A tot Z</option></select></div><div class="cards" id="catalogCards"><div class="empty">De echte productcatalogus wordt opgehaald.</div></div><div class="pagination"><button class="btn secondary" id="prevPage" disabled>Vorige</button><span id="pageInfo">Pagina 1</span><button class="btn secondary" id="nextPage" disabled>Volgende</button></div></section>
+
+<section id="results" class="panel">
+<div class="result-head">
+<div class="eyebrow">JOUW PERSOONLIJKE SELECTIE</div>
+<h2>Jouw wijnmatches</h2>
+<p class="muted">De beste matches uit het actuele assortiment.</p>
+<div class="pills" id="summary"></div>
+</div>
+<div id="status" class="status">Selectie berekenen…</div>
+<h3 class="section-title">De 3 beste matches</h3>
+<p class="section-note">De wijnen die het beste aansluiten op jouw antwoorden.</p>
+<div class="cards" id="best"></div>
+<h3 class="section-title">Ook het ontdekken waard</h3>
+<p class="section-note">Nog drie wijnen die interessant kunnen zijn.</p>
+<div class="cards" id="maybe"></div>
+<div class="nav">
+<button class="btn secondary" id="restart">Opnieuw beginnen</button>
+<button class="btn primary" id="allWinesButton">Bekijk alle wijnen</button>
+</div>
+</section>
+
+<section class="panel catalog" id="catalog">
+<div class="catalog-head">
+<div><div class="eyebrow">Het assortiment</div><h2>Alle beschikbare wijnen</h2></div>
+<div id="catalogCount" class="count">Assortiment laden…</div>
+</div>
+<div class="catalog-tools">
+<input id="search" type="search" placeholder="Zoek op wijn, druif of land…" aria-label="Zoek in wijnen">
+<select id="filterType" aria-label="Filter op wijnsoort">
+<option value="alle">Alle soorten</option>
+<option value="rood">Rode wijn</option>
+<option value="wit">Witte wijn</option>
+<option value="rose">Rosé</option>
+<option value="bubbels">Mousserend</option>
+<option value="zoet">Zoet / dessert</option>
+<option value="alcoholvrij">Alcoholvrij</option>
+</select>
+<select id="sort" aria-label="Sorteer wijnen">
+<option value="default">Webshopvolgorde</option>
+<option value="price-up">Prijs: laag naar hoog</option>
+<option value="price-down">Prijs: hoog naar laag</option>
+<option value="name">Naam: A tot Z</option>
+</select>
+</div>
+<div class="cards" id="catalogCards"><div class="empty">De echte productcatalogus wordt opgehaald.</div></div>
+<div class="pagination">
+<button class="btn secondary" id="prevPage" disabled>Vorige</button>
+<span id="pageInfo">Pagina 1</span>
+<button class="btn secondary" id="nextPage" disabled>Volgende</button>
+</div>
+</section>
+
 <p class="notice">Productnamen, afbeeldingen en prijzen worden uit de gekoppelde webshopcatalogus geladen. Prijzen kunnen door de webshop worden aangepast. Dit adviesprogramma plaatst geen bestellingen. Alcoholische dranken zijn uitsluitend bedoeld voor volwassenen van 18 jaar en ouder.</p>
-</main><footer>THE ONLINE SOMMELIER · Persoonlijk wijnadvies</footer>
+</main>
+<footer>THE ONLINE SOMMELIER · Persoonlijk wijnadvies</footer>
+
 <script>
 'use strict';
-const API='./wijnen.json';
-const CACHE_KEY='online_sommelier_wines_v7',CACHE_TTL=24*60*60*1000,PER_PAGE=24, PAGE_SIZE=100, MAX_PAGES=20;
-const answers={};let step=0,allWines=[],loadPromise=null,loadError=null,catalogPage=1;
-const steps=[...document.querySelectorAll('.step')],bar=document.getElementById('bar'),back=document.getElementById('back'),next=document.getElementById('next');
-function selected(k){return answers[k]&&(Array.isArray(answers[k])?answers[k].length>0:true)}
-function update(){steps.forEach((s,i)=>s.classList.toggle('active',i===step));bar.style.width=((step+1)/steps.length*100)+'%';back.disabled=step===0;next.textContent=step===steps.length-1?'Bekijk mijn wijnadvies':'Volgende';next.disabled=!selected(steps[step].querySelector('.options').dataset.key)}
-document.querySelectorAll('.options').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.option');if(!b)return;const k=g.dataset.key,v=b.dataset.value;if(g.dataset.multi==='true'){let a=answers[k]||[];if(v==='geen')a=['geen'];else{a=a.filter(x=>x!=='geen');a=a.includes(v)?a.filter(x=>x!==v):[...a,v]}answers[k]=a;g.querySelectorAll('.option').forEach(x=>x.classList.toggle('selected',a.includes(x.dataset.value)))}else{answers[k]=v;g.querySelectorAll('.option').forEach(x=>x.classList.toggle('selected',x===b))}update()}));
-back.addEventListener('click',()=>{if(step>0){step--;update()}});next.addEventListener('click',()=>{if(step<steps.length-1){step++;update()}else showResults()});
-function txt(v){return String(v??'').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim()}
-function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function priceOf(p){if(p?.optivio_price!==undefined&&p.optivio_price!==null&&p.optivio_price!==''){const x=Number(p.optivio_price);if(Number.isFinite(x))return x}let v=p?.prices?.price??p?.price??p?.regular_price??p?.display_price??p?.displayed_price;if(v&&typeof v==='object')v=v.amount??v.price;if(v===null||v===undefined||v==='')return null;if(typeof v==='number'){const minor=Number(p?.prices?.currency_minor_unit??2);return v/Math.pow(10,Number.isFinite(minor)?minor:2)}let s=String(v).trim().replace(/\s/g,'');if(s.includes('€')){const n=Number(s.replace(/[€]/g,'').replace(/\./g,'').replace(',','.'));return Number.isFinite(n)?n:null}if(/^\d+$/.test(s)){const minor=Number(p?.prices?.currency_minor_unit??2);return Number(s)/Math.pow(10,Number.isFinite(minor)?minor:2)}const n=Number(s.replace(',','.'));return Number.isFinite(n)?n:null}
-function nameOf(p){return txt(p?.name??p?.title??p?.product_name??p?.post_title??'')}
-function linkOf(p){return p?.permalink??p?.url??p?.link??p?.product_url??''}
-function imageOf(p){const v=p?.optivio_image??p?.images?.[0]?.src??p?.images?.[0]?.thumbnail??p?.image?.src??p?.image_url??p?.featured_image??p?.image??'';return typeof v==='string'?v:(v?.src??'')}
-function descOf(p){return txt(p?.short_description??p?.description??p?.excerpt??'')}
-function normalize(raw){if(typeof raw==='string'){try{return normalize(JSON.parse(raw))}catch{return []}}if(Array.isArray(raw))return raw;if(raw&&raw.error)throw new Error(raw.error);if(raw&&Array.isArray(raw.products))return raw.products;if(raw&&Array.isArray(raw.data))return raw.data;if(raw&&Array.isArray(raw.results))return raw.results;if(raw&&Array.isArray(raw.items))return raw.items;return raw?.product?[raw.product]:[]}
-function isWine(p){const n=nameOf(p).toLowerCase(),cats=JSON.stringify(p?.categories??[]).toLowerCase();if(!n)return false;const no=/(glas|glazen|karaf|decanter|kurkentrekker|wijnkoeler|koeler|ijsemmer|stopper|schenker|verpakking|wijnkist|wijnpakket|cadeaubox|cadeaukaart|proeverij|tasting|masterclass|cursus|boek|aromawiel|proefformulier|olie|limoncello|likeur|rum aged|sabre|sabel|tas voor|fleszak|accessoire)/i;if(no.test(n))return false;const yes=/(wine|wijn|vin\b|vino|wein|champagne|prosecco|cava|cr[eé]mant|porto|port\b|sherry|riesling|chardonnay|merlot|cabernet|pinot|sauvignon|tempranillo|syrah|grenache|malbec|zinfandel|nebbiolo|sangiovese|moscato|gewürztraminer|gewurztraminer|viognier|albariño|albarino|verdejo|rosé|rose\b|brut|brachetto|tokaji|sauternes|madeira|vermouth|alcohol free|alcoholvrij)/i;return yes.test(n)||/(wine|wijn|champagne|port|vino|vin\b)/i.test(cats)}
-function typeOf(p){const n=nameOf(p).toLowerCase(),c=JSON.stringify(p?.categories??[]).toLowerCase();if(/alcohol.?vrij|alcohol.?free|zero|0\.0/.test(n))return'alcoholvrij';if(/port\b|porto|tokaji|sauternes|dessert|late bottled|ruby|tawny|sherry|madeira/.test(n))return'zoet';if(/champagne|prosecco|cava|crémant|cremant|sparkling|spumante|frizzante|mousserend|brut/.test(n))return'bubbels';if(/rosé|rose\b|rosado/.test(n))return'rose';if(/red|rood|rosso|tinto/.test(n)||/(cabernet|merlot|syrah|shiraz|tempranillo|malbec|pinot noir|nebbiolo|sangiovese|primitivo|nero d'avola)/.test(n))return'rood';if(/white|wit|bianco|blanc|blanco/.test(n)||/(chardonnay|sauvignon|riesling|pinot grigio|verdejo|albariño|albarino|viognier|gewürztraminer)/.test(n))return'wit';if(/red|rood|rosso|tinto/.test(c))return'rood';if(/white|wit|blanc|bianco/.test(c))return'wit';if(/rose/.test(c))return'rose';return'onbekend'}
-function scoreTaste(p){const s=(nameOf(p)+' '+descOf(p)).toLowerCase(),o={fris:0,fruitig:0,vol:0,zacht:0,droog:0,zoet:0};if(/citrus|lime|lemon|appel|fresh|freshness|mineral|crisp|fris|acidity/.test(s))o.fris+=2;if(/fruit|berry|cherry|pear|peach|tropical|framboos|aardbei|kers/.test(s))o.fruitig+=2;if(/full.?bod|powerful|intense|rich|oak|barrel|krachtig|vol/.test(s))o.vol+=2;if(/soft|smooth|round|velvet|soepel|zacht/.test(s))o.zacht+=2;if(/dry|sec\b|secco|brut|droog/.test(s))o.droog+=2;if(/sweet|dolce|demi.?sec|zoet|dessert|port|tawny/.test(s))o.zoet+=2;return o}
-function foodFit(p){const s=(nameOf(p)+' '+descOf(p)).toLowerCase(),a=[];if(/vis|seafood|oyster|mussel|sushi|salmon/.test(s))a.push('vis');if(/beef|steak|lamb|bbq|barbecue|game|vlees/.test(s))a.push('vlees');if(/pasta|tomato|vegetable|vegetar|risotto/.test(s))a.push('pasta');if(/cheese|kaas|port|tawny/.test(s))a.push('kaas');if(/dessert|chocolate|sweet|port|tokaji|sauternes/.test(s))a.push('dessert');return a}
-function budgetRange(v){return v==='0-10'?[0,10]:v==='10-15'?[10,15]:v==='15-25'?[15,25]:v==='25-50'?[25,50]:[50,999999]}
-function rank(p){let score=0,reasons=[],price=priceOf(p),[lo,hi]=budgetRange(answers.budget);if(price!==null){if(price>=lo&&price<=hi){score+=6;reasons.push('binnen jouw budget')}else if(price<=hi*1.2&&price>=lo*.8){score+=2;reasons.push('dicht bij jouw budget')}else score-=2}const t=typeOf(p),wanted=answers.type||[];if(wanted.includes('geen')||wanted.includes(t)){score+=5;reasons.push('jouw wijnsoort')}else if(t!=='onbekend')score-=1;const ts=scoreTaste(p);if(ts[answers.taste]>0){score+=4;reasons.push('jouw smaakvoorkeur')}if(foodFit(p).includes(answers.food)){score+=3;reasons.push('past bij jouw gerecht')}const o=(nameOf(p)+' '+descOf(p)).toLowerCase();if(answers.occasion==='cadeau'&&/gift|limited|reserve|prestige|premium|speciale selectie/.test(o)){score++;reasons.push('geschikt als cadeau')}if(answers.occasion==='borrel'&&['bubbels','rose'].includes(t)){score++;reasons.push('past bij een borrel')}return{p,score,reasons,price}}
-function bottleFallback(){return '<div class="wine-placeholder"><div class="bottle"></div></div>'}
-function card(x){const p=x.p,n=nameOf(p),t=typeOf(p),kind={rood:'Rode wijn',wit:'Witte wijn',rose:'Rosé',bubbels:'Mousserend',zoet:'Zoet / dessert',alcoholvrij:'Alcoholvrij',onbekend:'Wijn'}[t],url=linkOf(p),img=imageOf(p),desc=descOf(p);const media=img?`<img class="wine-photo" loading="lazy" src="${esc(img)}" alt="${esc(n)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="wine-placeholder" hidden><div class="bottle"></div></div>`:bottleFallback();const price=x.price===null?'Prijs niet vermeld':new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(x.price);return `<article class="wine">${media}<div class="winebody"><div class="kind">${kind}</div><h3>${esc(n)}</h3><div class="price">${price}</div>${desc?`<p>${esc(desc.slice(0,190))}</p>`:''}${x.reasons?.length?`<p class="why"><span class="fit">Waarom deze match</span><br>${esc(x.reasons.slice(0,3).join(' · '))}</p>`:''}${url?`<a href="${esc(url)}" target="_blank" rel="noopener">Bekijk wijn bij de webshop ↗</a>`:''}</div></article>`}
-function status(message,kind=''){const el=document.getElementById('catalogStatus');el.textContent=message;el.className='status '+kind}
-function readCache(){try{const c=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');if(c&&Array.isArray(c.wines)&&Date.now()-c.savedAt<CACHE_TTL)return c.wines}catch(e){}return []}
-function saveCache(list){try{localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),wines:list}))}catch(e){}}
-async function loadWines(){
- status('Wijncatalogus ophalen…');
- const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
- try{
-  const r=await fetch(API,{headers:{Accept:'application/json'},signal:controller.signal,cache:'no-store'});
-  let data;try{data=await r.json()}catch{throw new Error('De wijnserver stuurde geen geldige productgegevens terug.')}
-  if(!r.ok)throw new Error(data?.error||('Wijnserver gaf fout '+r.status));
-  const products=normalize(data);
-  const unique=new Map();
-  for(const p of products){
-   if(!isWine(p))continue;
-   const key=String(p.id??(nameOf(p)+'|'+(linkOf(p)||priceOf(p)))).toLowerCase();
-   if(!unique.has(key))unique.set(key,p);
-  }
-  if(!unique.size)throw new Error('De productfeed bevat geen wijnproducten.');
-  return [...unique.values()];
- }catch(e){throw new Error(e.name==='AbortError'?'De wijnserver reageert te langzaam.':e.message)}
- finally{clearTimeout(timer)}
+
+/* JUISTE KOPPELING MET DE CLOUDFLARE WIJNSERVER */
+const API='https://optivio-wijnserver.luuknoordermeer08.workers.dev/wijnen';
+
+const CACHE_KEY='online_sommelier_wines_v9';
+const CACHE_TTL=15*60*1000;
+const PER_PAGE=24;
+
+const answers={};
+let step=0,allWines=[],loadPromise=null,loadError=null,catalogPage=1;
+
+const steps=[...document.querySelectorAll('.step')];
+const bar=document.getElementById('bar');
+const back=document.getElementById('back');
+const next=document.getElementById('next');
+
+function selected(k){
+return answers[k]&&(Array.isArray(answers[k])?answers[k].length>0:true);
 }
-function refreshCatalog(){loadPromise=loadWines().then(list=>{if(!list.length)throw new Error('De productfeed bevat geen wijnproducten.');allWines=list;saveCache(list);loadError=null;status(`${list.length} wijnen geladen. Je kunt direct advies krijgen.`,'ready');renderCatalog();return list}).catch(err=>{loadError=err;if(!allWines.length){status('Het assortiment kon niet worden geladen: '+err.message,'error');document.getElementById('catalogCards').innerHTML='<div class="empty">De verbinding met de wijncatalogus is niet gelukt. Vernieuw de pagina om opnieuw te proberen.</div>';document.getElementById('catalogCount').textContent='Catalogus niet bereikbaar'}else status(`${allWines.length} opgeslagen wijnen beschikbaar. Live verversen lukte niet.`,'ready');return allWines});return loadPromise}
-function renderResults(){const ranked=allWines.map(rank).sort((a,b)=>b.score-a.score);document.getElementById('status').textContent=`${allWines.length} wijnen vergeleken. Dit zijn de beste matches.`;document.getElementById('best').innerHTML=ranked.slice(0,3).map(card).join('')||'<div class="empty">Geen passende wijnen gevonden.</div>';document.getElementById('maybe').innerHTML=ranked.slice(3,6).map(card).join('')||'<div class="empty">Geen extra suggesties.</div>'}
-async function showResults(){document.getElementById('quiz').style.display='none';document.getElementById('results').classList.add('show');document.getElementById('summary').innerHTML=[`Budget: ${answers.budget==='50+'?'€50+':'€'+answers.budget.replace('-', '–')}`,`Soort: ${(answers.type||[]).join(', ')}`,`Smaak: ${answers.taste}`,`Moment: ${answers.occasion}`,`Bij: ${answers.food}`].map(s=>`<span class="pill">${esc(s)}</span>`).join('');if(!allWines.length){document.getElementById('status').textContent='Assortiment laden… je advies verschijnt zodra de producten binnen zijn.';await(loadPromise||refreshCatalog())}if(allWines.length)renderResults();else document.getElementById('status').textContent='Wijnadvies is nu niet beschikbaar. De verbinding met de productcatalogus moet worden gecontroleerd.';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'})}
-document.getElementById('restart').addEventListener('click',()=>{Object.keys(answers).forEach(k=>delete answers[k]);document.querySelectorAll('.option').forEach(b=>b.classList.remove('selected'));step=0;document.getElementById('results').classList.remove('show');document.getElementById('quiz').style.display='block';update();window.scrollTo({top:0,behavior:'smooth'})});
-document.getElementById('allWinesButton').addEventListener('click',()=>document.getElementById('catalog').scrollIntoView({behavior:'smooth'}));
-function filtered(){let list=allWines.slice(),q=document.getElementById('search').value.trim().toLowerCase(),t=document.getElementById('filterType').value,s=document.getElementById('sort').value;if(q)list=list.filter(p=>(nameOf(p)+' '+descOf(p)+' '+JSON.stringify(p.categories||[])).toLowerCase().includes(q));if(t!=='alle')list=list.filter(p=>typeOf(p)===t);if(s==='price-up')list.sort((a,b)=>(priceOf(a)??Infinity)-(priceOf(b)??Infinity));if(s==='price-down')list.sort((a,b)=>(priceOf(b)??-Infinity)-(priceOf(a)??-Infinity));if(s==='name')list.sort((a,b)=>nameOf(a).localeCompare(nameOf(b),'nl'));return list}
-function renderCatalog(){const list=filtered(),pages=Math.max(1,Math.ceil(list.length/PER_PAGE));catalogPage=Math.min(catalogPage,pages);const shown=list.slice((catalogPage-1)*PER_PAGE,catalogPage*PER_PAGE);document.getElementById('catalogCount').textContent=`${list.length} wijnen gevonden`;document.getElementById('catalogCards').innerHTML=shown.map(p=>card({p,price:priceOf(p),reasons:[]})).join('')||'<div class="empty">Geen wijnen gevonden. Pas je zoekopdracht aan.</div>';document.getElementById('pageInfo').textContent=`Pagina ${catalogPage} van ${pages}`;document.getElementById('prevPage').disabled=catalogPage<=1;document.getElementById('nextPage').disabled=catalogPage>=pages}
-['search','filterType','sort'].forEach(id=>document.getElementById(id).addEventListener(id==='search'?'input':'change',()=>{catalogPage=1;renderCatalog()}));document.getElementById('prevPage').addEventListener('click',()=>{catalogPage--;renderCatalog();document.getElementById('catalog').scrollIntoView({behavior:'smooth'})});document.getElementById('nextPage').addEventListener('click',()=>{catalogPage++;renderCatalog();document.getElementById('catalog').scrollIntoView({behavior:'smooth'})});
-const cached=readCache();if(cached.length){allWines=cached;status(`${cached.length} wijnen direct geladen. Controleren op actuele prijzen…`,'ready');renderCatalog()}refreshCatalog();update();
+
+function update(){
+steps.forEach((s,i)=>s.classList.toggle('active',i===step));
+bar.style.width=((step+1)/steps.length*100)+'%';
+back.disabled=step===0;
+next.textContent=step===steps.length-1?'Bekijk mijn wijnadvies':'Volgende';
+next.disabled=!selected(steps[step].querySelector('.options').dataset.key);
+}
+
+document.querySelectorAll('.options').forEach(g=>g.addEventListener('click',e=>{
+const b=e.target.closest('.option');
+if(!b)return;
+const k=g.dataset.key,v=b.dataset.value;
+
+if(g.dataset.multi==='true'){
+let a=answers[k]||[];
+if(v==='geen')a=['geen'];
+else{
+a=a.filter(x=>x!=='geen');
+a=a.includes(v)?a.filter(x=>x!==v):[...a,v];
+}
+answers[k]=a;
+g.querySelectorAll('.option').forEach(x=>x.classList.toggle('selected',a.includes(x.dataset.value)));
+}else{
+answers[k]=v;
+g.querySelectorAll('.option').forEach(x=>x.classList.toggle('selected',x===b));
+}
+update();
+}));
+
+back.addEventListener('click',()=>{
+if(step>0){step--;update();}
+});
+
+next.addEventListener('click',()=>{
+if(step<steps.length-1){step++;update();}
+else showResults();
+});
+
+/* HTML-ENTITEITEN CORRECT OMZETTEN */
+function txt(v){
+let s=String(v??'').replace(/<[^>]*>/g,' ');
+for(let i=0;i<3;i++){
+s=s.replace(/&(#x[0-9a-f]+|#\d+|amp|nbsp|quot|apos|lt|gt|euro|ndash|mdash|lsquo|rsquo|ldquo|rdquo|hellip);/gi,(m,e)=>{
+const key=e.toLowerCase();
+if(key.startsWith('#x'))return String.fromCodePoint(parseInt(key.slice(2),16));
+if(key.startsWith('#'))return String.fromCodePoint(parseInt(key.slice(1),10));
+const entities={amp:'&',nbsp:' ',quot:'"',apos:"'",lt:'<',gt:'>',euro:'€',ndash:'–',mdash:'—',lsquo:'‘',rsquo:'’',ldquo:'“',rdquo:'”',hellip:'…'};
+return entities[key]??m;
+});
+}
+return s.replace(/\s+/g,' ').trim();
+}
+
+function esc(v){
+return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function priceOf(p){
+if(p?.optivio_price!==undefined&&p.optivio_price!==null&&p.optivio_price!==''){
+const x=Number(p.optivio_price);
+if(Number.isFinite(x))return x;
+}
+let v=p?.prices?.price??p?.price??p?.regular_price??p?.display_price??p?.displayed_price;
+if(v&&typeof v==='object')v=v.amount??v.price;
+if(v===null||v===undefined||v==='')return null;
+if(typeof v==='number'){
+const minor=Number(p?.prices?.currency_minor_unit??2);
+return v/Math.pow(10,Number.isFinite(minor)?minor:2);
+}
+let s=String(v).trim().replace(/\s/g,'');
+if(s.includes('€')){
+const n=Number(s.replace(/[€]/g,'').replace(/\./g,'').replace(',','.'));
+return Number.isFinite(n)?n:null;
+}
+if(/^\d+$/.test(s)){
+const minor=Number(p?.prices?.currency_minor_unit??2);
+return Number(s)/Math.pow(10,Number.isFinite(minor)?minor:2);
+}
+const n=Number(s.replace(',','.'));
+return Number.isFinite(n)?n:null;
+}
+
+function nameOf(p){
+return txt(p?.name??p?.title??p?.product_name??p?.post_title??'');
+}
+
+function linkOf(p){
+return p?.permalink??p?.url??p?.link??p?.product_url??'';
+}
+
+function imageOf(p){
+const v=p?.optivio_image??p?.images?.[0]?.src??p?.images?.[0]?.thumbnail??p?.image?.src??p?.image_url??p?.featured_image??p?.image??'';
+return typeof v==='string'?v:(v?.src??'');
+}
+
+function descOf(p){
+return txt(p?.short_description??p?.description??p?.excerpt??'');
+}
+
+function normalize(raw){
+if(typeof raw==='string'){
+try{return normalize(JSON.parse(raw));}
+catch{return [];}
+}
+if(Array.isArray(raw))return raw;
+if(raw&&raw.error)throw new Error(raw.error);
+if(raw&&Array.isArray(raw.products))return raw.products;
+if(raw&&Array.isArray(raw.data))return raw.data;
+if(raw&&Array.isArray(raw.results))return raw.results;
+if(raw&&Array.isArray(raw.items))return raw.items;
+return raw?.product?[raw.product]:[];
+}
+
+function isWine(p){
+const n=nameOf(p).toLowerCase(),cats=JSON.stringify(p?.categories??[]).toLowerCase();
+if(!n)return false;
+const no=/(glas|glazen|karaf|decanter|kurkentrekker|wijnkoeler|koeler|ijsemmer|stopper|schenker|verpakking|wijnkist|wijnpakket|cadeaubox|cadeaukaart|proeverij|tasting|masterclass|cursus|boek|aromawiel|proefformulier|olie|limoncello|likeur|rum aged|sabre|sabel|tas voor|fleszak|accessoire)/i;
+if(no.test(n))return false;
+const yes=/(wine|wijn|vin\b|vino|wein|champagne|prosecco|cava|cr[eé]mant|porto|port\b|sherry|riesling|chardonnay|merlot|cabernet|pinot|sauvignon|tempranillo|syrah|grenache|malbec|zinfandel|nebbiolo|sangiovese|moscato|gewürztraminer|gewurztraminer|viognier|albariño|albarino|verdejo|rosé|rose\b|brut|brachetto|tokaji|sauternes|madeira|vermouth|alcohol free|alcoholvrij)/i;
+return yes.test(n)||/(wine|wijn|champagne|port|vino|vin\b)/i.test(cats);
+}
+
+function typeOf(p){
+const n=nameOf(p).toLowerCase(),c=JSON.stringify(p?.categories??[]).toLowerCase();
+if(/alcohol.?vrij|alcohol.?free|zero|0\.0/.test(n))return'alcoholvrij';
+if(/port\b|porto|tokaji|sauternes|dessert|late bottled|ruby|tawny|sherry|madeira/.test(n))return'zoet';
+if(/champagne|prosecco|cava|crémant|cremant|sparkling|spumante|frizzante|mousserend|brut/.test(n))return'bubbels';
+if(/rosé|rose\b|rosado/.test(n))return'rose';
+if(/red|rood|rosso|tinto/.test(n)||/(cabernet|merlot|syrah|shiraz|tempranillo|malbec|pinot noir|nebbiolo|sangiovese|primitivo|nero d'avola)/.test(n))return'rood';
+if(/white|wit|bianco|blanc|blanco/.test(n)||/(chardonnay|sauvignon|riesling|pinot grigio|verdejo|albariño|albarino|viognier|gewürztraminer)/.test(n))return'wit';
+if(/red|rood|rosso|tinto/.test(c))return'rood';
+if(/white|wit|blanc|bianco/.test(c))return'wit';
+if(/rose/.test(c))return'rose';
+return'onbekend';
+}
+
+function scoreTaste(p){
+const s=(nameOf(p)+' '+descOf(p)).toLowerCase();
+const o={fris:0,fruitig:0,vol:0,zacht:0,droog:0,zoet:0};
+if(/citrus|lime|lemon|appel|fresh|freshness|mineral|crisp|fris|acidity/.test(s))o.fris+=2;
+if(/fruit|berry|cherry|pear|peach|tropical|framboos|aardbei|kers/.test(s))o.fruitig+=2;
+if(/full.?bod|powerful|intense|rich|oak|barrel|krachtig|vol/.test(s))o.vol+=2;
+if(/soft|smooth|round|velvet|soepel|zacht/.test(s))o.zacht+=2;
+if(/dry|sec\b|secco|brut|droog/.test(s))o.droog+=2;
+if(/sweet|dolce|demi.?sec|zoet|dessert|port|tawny/.test(s))o.zoet+=2;
+return o;
+}
+
+function foodFit(p){
+const s=(nameOf(p)+' '+descOf(p)).toLowerCase(),a=[];
+if(/vis|seafood|oyster|mussel|sushi|salmon/.test(s))a.push('vis');
+if(/beef|steak|lamb|bbq|barbecue|game|vlees/.test(s))a.push('vlees');
+if(/pasta|tomato|vegetable|vegetar|risotto/.test(s))a.push('pasta');
+if(/cheese|kaas|port|tawny/.test(s))a.push('kaas');
+if(/dessert|chocolate|sweet|port|tokaji|sauternes/.test(s))a.push('dessert');
+return a;
+}
+
+function budgetRange(v){
+return v==='0-10'?[0,10]:v==='10-15'?[10,15]:v==='15-25'?[15,25]:v==='25-50'?[25,50]:[50,999999];
+}
+
+function rank(p){
+let score=0,reasons=[],price=priceOf(p),[lo,hi]=budgetRange(answers.budget);
+if(price!==null){
+if(price>=lo&&price<=hi){score+=6;reasons.push('binnen jouw budget');}
+else if(price<=hi*1.2&&price>=lo*.8){score+=2;reasons.push('dicht bij jouw budget');}
+else score-=2;
+}
+const t=typeOf(p),wanted=answers.type||[];
+if(wanted.includes('geen')||wanted.includes(t)){score+=5;reasons.push('jouw wijnsoort');}
+else if(t!=='onbekend')score-=1;
+const ts=scoreTaste(p);
+if(ts[answers.taste]>0){score+=4;reasons.push('jouw smaakvoorkeur');}
+if(foodFit(p).includes(answers.food)){score+=3;reasons.push('past bij jouw gerecht');}
+const o=(nameOf(p)+' '+descOf(p)).toLowerCase();
+if(answers.occasion==='cadeau'&&/gift|limited|reserve|prestige|premium|speciale selectie/.test(o)){score++;reasons.push('geschikt als cadeau');}
+if(answers.occasion==='borrel'&&['bubbels','rose'].includes(t)){score++;reasons.push('past bij een borrel');}
+return{p,score,reasons,price};
+}
+
+function bottleFallback(){
+return '<div class="wine-placeholder"><div class="bottle"></div></div>';
+}
+
+function card(x){
+const p=x.p,n=nameOf(p),t=typeOf(p);
+const kind={rood:'Rode wijn',wit:'Witte wijn',rose:'Rosé',bubbels:'Mousserend',zoet:'Zoet / dessert',alcoholvrij:'Alcoholvrij',onbekend:'Wijn'}[t];
+const url=linkOf(p),img=imageOf(p),desc=descOf(p);
+const media=img?`<img class="wine-photo" loading="lazy" src="${esc(img)}" alt="${esc(n)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="wine-placeholder" hidden><div class="bottle"></div></div>`:bottleFallback();
+const price=x.price===null?'Prijs niet vermeld':new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(x.price);
+return `<article class="wine">${media}<div class="winebody"><div class="kind">${kind}</div><h3>${esc(n)}</h3><div class="price">${price}</div>${desc?`<p>${esc(desc.slice(0,190))}</p>`:''}${x.reasons?.length?`<p class="why"><span class="fit">Waarom deze match</span><br>${esc(x.reasons.slice(0,3).join(' · '))}</p>`:''}${url?`<a href="${esc(url)}" target="_blank" rel="noopener">Bekijk wijn bij de webshop ↗</a>`:''}</div></article>`;
+}
+
+function status(message,kind=''){
+const el=document.getElementById('catalogStatus');
+el.textContent=message;
+el.className='status '+kind;
+}
+
+function readCache(){
+try{
+const c=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');
+if(c&&Array.isArray(c.wines)&&Date.now()-c.savedAt<CACHE_TTL)return c.wines;
+}catch(e){}
+return [];
+}
+
+function saveCache(list){
+try{
+localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),wines:list}));
+}catch(e){}
+}
+
+/* WINEN OPHALEN VAN CLOUDFLARE */
+async function loadWines(){
+status('Wijncatalogus ophalen…');
+const controller=new AbortController();
+const timer=setTimeout(()=>controller.abort(),45000);
+try{
+const r=await fetch(API,{
+headers:{Accept:'application/json'},
+signal:controller.signal,
+cache:'no-store'
+});
+let data;
+try{data=await r.json();}
+catch{throw new Error('De wijnserver stuurde geen geldige productgegevens terug.');}
+if(!r.ok)throw new Error(data?.error||('Wijnserver gaf fout '+r.status));
+const products=normalize(data);
+const unique=new Map();
+for(const p of products){
+if(!isWine(p))continue;
+const key=String(p.id??(nameOf(p)+'|'+(linkOf(p)||priceOf(p)))).toLowerCase();
+if(!unique.has(key))unique.set(key,p);
+}
+if(!unique.size)throw new Error('De productfeed bevat geen wijnproducten.');
+return [...unique.values()];
+}catch(e){
+throw new Error(e.name==='AbortError'?'De wijnserver reageert te langzaam.':e.message);
+}finally{
+clearTimeout(timer);
+}
+}
+
+function refreshCatalog(){
+loadPromise=loadWines().then(list=>{
+if(!list.length)throw new Error('De productfeed bevat geen wijnproducten.');
+allWines=list;
+saveCache(list);
+loadError=null;
+status(`${list.length} wijnen geladen. Je kunt direct advies krijgen.`,'ready');
+renderCatalog();
+return list;
+}).catch(err=>{
+loadError=err;
+if(!allWines.length){
+status('Het assortiment kon niet worden geladen: '+err.message,'error');
+document.getElementById('catalogCards').innerHTML='<div class="empty">De verbinding met de wijncatalogus is niet gelukt. Vernieuw de pagina om opnieuw te proberen.</div>';
+document.getElementById('catalogCount').textContent='Catalogus niet bereikbaar';
+}else{
+status(`${allWines.length} opgeslagen wijnen beschikbaar. Live verversen lukte niet.`,'ready');
+}
+return allWines;
+});
+return loadPromise;
+}
+
+function renderResults(){
+const ranked=allWines.map(rank).sort((a,b)=>b.score-a.score);
+document.getElementById('status').textContent=`${allWines.length} wijnen vergeleken. Dit zijn de beste matches.`;
+document.getElementById('best').innerHTML=ranked.slice(0,3).map(card).join('')||'<div class="empty">Geen passende wijnen gevonden.</div>';
+document.getElementById('maybe').innerHTML=ranked.slice(3,6).map(card).join('')||'<div class="empty">Geen extra suggesties.</div>';
+}
+
+async function showResults(){
+document.getElementById('quiz').style.display='none';
+document.getElementById('results').classList.add('show');
+document.getElementById('summary').innerHTML=[
+`Budget: ${answers.budget==='50+'?'€50+':'€'+answers.budget.replace('-', '–')}`,
+`Soort: ${(answers.type||[]).join(', ')}`,
+`Smaak: ${answers.taste}`,
+`Moment: ${answers.occasion}`,
+`Bij: ${answers.food}`
+].map(s=>`<span class="pill">${esc(s)}</span>`).join('');
+if(!allWines.length){
+document.getElementById('status').textContent='Assortiment laden… je advies verschijnt zodra de producten binnen zijn.';
+await(loadPromise||refreshCatalog());
+}
+if(allWines.length)renderResults();
+else document.getElementById('status').textContent='Wijnadvies is nu niet beschikbaar. De verbinding met de productcatalogus moet worden gecontroleerd.';
+document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.getElementById('restart').addEventListener('click',()=>{
+Object.keys(answers).forEach(k=>delete answers[k]);
+document.querySelectorAll('.option').forEach(b=>b.classList.remove('selected'));
+step=0;
+document.getElementById('results').classList.remove('show');
+document.getElementById('quiz').style.display='block';
+update();
+window.scrollTo({top:0,behavior:'smooth'});
+});
+
+document.getElementById('allWinesButton').addEventListener('click',()=>{
+document.getElementById('catalog').scrollIntoView({behavior:'smooth'});
+});
+
+function filtered(){
+let list=allWines.slice();
+let q=document.getElementById('search').value.trim().toLowerCase();
+let t=document.getElementById('filterType').value;
+let s=document.getElementById('sort').value;
+if(q)list=list.filter(p=>(nameOf(p)+' '+descOf(p)+' '+JSON.stringify(p.categories||[])).toLowerCase().includes(q));
+if(t!=='alle')list=list.filter(p=>typeOf(p)===t);
+if(s==='price-up')list.sort((a,b)=>(priceOf(a)??Infinity)-(priceOf(b)??Infinity));
+if(s==='price-down')list.sort((a,b)=>(priceOf(b)??-Infinity)-(priceOf(a)??-Infinity));
+if(s==='name')list.sort((a,b)=>nameOf(a).localeCompare(nameOf(b),'nl'));
+return list;
+}
+
+function renderCatalog(){
+const list=filtered();
+const pages=Math.max(1,Math.ceil(list.length/PER_PAGE));
+catalogPage=Math.min(catalogPage,pages);
+const shown=list.slice((catalogPage-1)*PER_PAGE,catalogPage*PER_PAGE);
+document.getElementById('catalogCount').textContent=`${list.length} wijnen gevonden`;
+document.getElementById('catalogCards').innerHTML=shown.map(p=>card({p,price:priceOf(p),reasons:[]})).join('')||'<div class="empty">Geen wijnen gevonden. Pas je zoekopdracht aan.</div>';
+document.getElementById('pageInfo').textContent=`Pagina ${catalogPage} van ${pages}`;
+document.getElementById('prevPage').disabled=catalogPage<=1;
+document.getElementById('nextPage').disabled=catalogPage>=pages;
+}
+
+['search','filterType','sort'].forEach(id=>
+document.getElementById(id).addEventListener(id==='search'?'input':'change',()=>{
+catalogPage=1;
+renderCatalog();
+})
+);
+
+document.getElementById('prevPage').addEventListener('click',()=>{
+catalogPage--;
+renderCatalog();
+document.getElementById('catalog').scrollIntoView({behavior:'smooth'});
+});
+
+document.getElementById('nextPage').addEventListener('click',()=>{
+catalogPage++;
+renderCatalog();
+document.getElementById('catalog').scrollIntoView({behavior:'smooth'});
+});
+
+/* DIRECTE START */
+const cached=readCache();
+if(cached.length){
+allWines=cached;
+status(`${cached.length} wijnen direct geladen. Controleren op actuele prijzen…`,'ready');
+renderCatalog();
+}
+refreshCatalog();
+update();
 </script>
-</body></html>
+</body>
+</html>
